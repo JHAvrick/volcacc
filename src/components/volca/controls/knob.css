@@ -1,0 +1,14 @@
+.knob_wrapper {
+    position: absolute;
+    border-radius: 50%;
+    background-color: transparent;
+}
+
+.knob_bg-image {
+    max-width: 100%;
+    max-height: 100%;
+    border-style: none;
+    backface-visibility: hidden;
+    transform: perspective(1px) translateZ(0);
+    -webkit-font-smoothing: subpixel-antialiased;
+}

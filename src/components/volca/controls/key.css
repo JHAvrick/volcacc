@@ -1,0 +1,22 @@
+.key_wrapper {
+    position: absolute;  
+    width: 4.40%;
+    height: 14.44%;
+    top: 68.4%;
+    background-color: transparent;
+
+    transition: 50ms;
+}
+
+.key_wrapper:hover {
+    transform: scale(.95);
+}
+
+.key_bg-image {
+    max-width: 100%;
+    max-height: 100%;
+    border-style: none;
+    backface-visibility: hidden;
+    transform: perspective(1px) translateZ(0);
+    -webkit-font-smoothing: subpixel-antialiased;
+}
