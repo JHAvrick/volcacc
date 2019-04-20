@@ -28,6 +28,11 @@
   color: #61dafb;
 }
 
+@font-face {
+  font-family: 'Digital7';
+  src: local('Digital7'), url(./assets/fonts/digital-7.ttf) format('ttf');
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

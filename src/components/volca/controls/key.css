@@ -20,3 +20,23 @@
     transform: perspective(1px) translateZ(0);
     -webkit-font-smoothing: subpixel-antialiased;
 }
+
+.key_light-overlay {
+    position: absolute;
+    width: 75%;
+    left: 5px;
+    top: -3px;
+    opacity: 0;
+    animation: flicker .1s infinite; 
+    visibility: hidden;
+}
+
+@keyframes flicker {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+

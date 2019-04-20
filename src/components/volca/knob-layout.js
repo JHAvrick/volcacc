@@ -1,4 +1,4 @@
-const VolcaLayout = {
+const KnobLayout = {
     Octave: {
         size: "medium",
         top: "32.50%",
@@ -62,8 +62,36 @@ const VolcaLayout = {
         width: "6.66%",
         height: "11.11%"        
     },
+    Tempo: {
+        size: "small",
+        top: "12.1%",
+        left: "25.49%",
+        width: "3.46%",
+        height: "5.77%"        
+    },
+    Attack: {
+        size: "small",
+        top: "12.1%",
+        left: "34.6%",
+        width: "3.46%",
+        height: "5.77%"          
+    },
+    Decay: {
+        size: "small",
+        top: "12.1%",
+        left: "43.8%",
+        width: "3.46%",
+        height: "5.77%"           
+    },
+    EgInt: {
+        size: "small",
+        top: "12.1%",
+        left: "52.9%",
+        width: "3.46%",
+        height: "5.77%"           
+    },
 
 
 }
 
-export default VolcaLayout;
+export default KnobLayout;

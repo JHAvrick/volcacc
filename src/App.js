@@ -6,10 +6,6 @@ import Volca from "./components/volca/volca";
 class App extends Component {
   constructor(){
     super();
-
-    this.state = {
-      cutoffPosition: 5    
-    }
   }
 
 
