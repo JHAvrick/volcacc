@@ -1,0 +1,65 @@
+.settings-panel_wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+
+    background: rgba(0, 0, 0, 0.55);
+    width: 200px;
+    height: 600px;
+    margin-left: 10px;
+}
+
+.settings-panel_group {
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+}
+
+.settings-panel_group-header {
+    margin: 5px;
+    text-align: left;
+
+    font-family: Digital7;
+    font-size: 20pt;
+
+    color: white;
+}
+
+.settings-panel_line {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.settings-panel_line:last-child {
+    width: 100%;
+}
+
+.settings-panel_button {
+    margin: 3px;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+
+    background: rgba(0, 0, 0, 0.35);
+    border: 0.5px solid rgba(255, 255, 255, 0.75);
+    color: rgba(255, 255, 255, 0.89);
+    cursor: pointer;
+
+    transition: 200ms;
+}
+
+.settings-panel_button:hover {
+    background: rgba(255, 255, 255, 0.75);
+    color: black;
+
+    transition: 200ms;
+}
+
+.button-green {
+    color: #5AFF88;
+}
+
+.button-red {
+    color: #FB6666;
+}

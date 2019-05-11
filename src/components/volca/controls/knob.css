@@ -12,3 +12,13 @@
     transform: perspective(1px) translateZ(0);
     -webkit-font-smoothing: subpixel-antialiased;
 }
+
+/*
+.knob_bg-image:active {
+    transform: scale(.98);
+}
+
+.knob_bg-image:hover {
+    transform: scale(.98);
+}
+*/

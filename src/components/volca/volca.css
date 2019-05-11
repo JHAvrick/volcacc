@@ -3,13 +3,13 @@
     left: 0;
     right: 0;
     width: 1000px;
-    
-    background-color: blue;
+
     backface-visibility: hidden;
     transform: perspective(1px) translateZ(0);
     -webkit-font-smoothing: subpixel-antialiased;
-    transform: scale(1.0);
-
+    transform: scale(1);
+    user-select: none;
+    -moz-window-dragging: none;
 }
 
 .volca_bg-image {

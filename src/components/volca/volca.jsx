@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import convertRange from '../../util/convert-range';
 import KnobLayout from './knob-layout';
 import ButtonLayout from './button-layout';
 import VolcaPNG from "../../assets/volca_slices/volca.png";
@@ -6,80 +7,56 @@ import Knob from './controls/knob';
 import PushButton from './controls/push-button';
 import KeyImages from './controls/key-images';
 import Key from './controls/key';
+import LightToggle from './controls/light-toggle';
+import LEDDisplay from './controls/led-display';
 import "./volca.css";
-import WebMidi from 'webmidi';
-
-var output;
-WebMidi.enable(function (err) {
-    console.log(WebMidi.inputs);
-    console.log(WebMidi.outputs);
-    output = WebMidi.outputs[0];
-});
 
 
 //Iterated over to generate the Volca keybed
 const Notes = ["A", "Bb", "B", "C", "C#", "D", "Eb", "E", "F", "F#", "G", "G#", "A", "Bb", "B", "C"];
 
-function handleNotePressed(note) {
-        output.playNote(note + "2");
-}
-
-function handleNoteReleased(note) {
-    output.stopNote(note + "2");
-}
+//List of 
+const FuncControls = ["funcM1", "funcM2", "funcM3", "funcM4", "funcM5", "funcM6", "funcM7", "funcM8", 
+                        "func9", "func10", "func11", "func12", "func13", "func14", "func15", "func16"]
 
 function Volca(props) {
-
-    const [octave, setOctave] = useState(64);
-    const [peak, setPeak] = useState(64);
-    const [cutoff, setCutoff] = useState(64);
-    const [rate, setRate] = useState(64);
-    const [int, setInt] = useState(64);
-    const [pitch1, setPitch1] = useState(64);
-    const [pitch2, setPitch2] = useState(64);
-    const [pitch3, setPitch3] = useState(64);
-    const [volume, setVolume] = useState(64);
-
-    const [tempo, setTempo] = useState(64);
-    const [attack, setAttack] = useState(64);
-    const [decay, setDecay] = useState(64);
-    const [egInt, setEgInt] = useState(64);
-
-    const VCF = [octave, peak, cutoff];
-    const LFO = [rate, int];
-    const VCO = [pitch1, pitch2, pitch3, volume];
-    const EG = [tempo, attack, decay, egInt];
+    
+    const [activeCC, setActiveCC] = useState({ name: "octave", value: props.patch.octave });
+    const [patch, setPatch] = useState(props.patch);
+    const [noteOctave, setNoteOctave] = useState(
+        Math.floor(convertRange(props.patch.octave, 0, 127, -1, 4))
+    );
 
     useEffect(() => {
-        output.sendControlChange(42, int);
-    }, [int]);
-
-    useEffect(() => {
-        output.sendControlChange(41, rate);
-    }, [rate]);
-
-    useEffect(() => {
-        output.sendControlChange(47, decay);
-    }, [decay]);
+        setPatch({...props.patch});
+        setNoteOctave(Math.floor(convertRange(props.patch.octave, 0, 127, 0, 6)));
+    }, [props.patch]);
 
     return(
         <div  className="volca_wrapper"  draggable={false}>
             <img className="volca_bg-image" alt="Volca Bass" src={VolcaPNG}  draggable={false}></img>
 
-            <Knob { ...KnobLayout.Octave } cc={40} value={ octave } onChange={(value) => setOctave(value)} />
-            <Knob { ...KnobLayout.Peak } value={ peak } onChange={(value) => setPeak(value)}/>
-            <Knob { ...KnobLayout.Cutoff } value={ cutoff } onChange={(value) => setCutoff(value)}/>
-            <Knob { ...KnobLayout.Rate } cc={41} value={ rate } onChange={(value) => setRate(value)}/>
-            <Knob { ...KnobLayout.Int } cc={42} value={ int } onChange={(value) => setInt(value)}/>
-            <Knob { ...KnobLayout.Pitch1 } cc={43} value={ pitch1 } onChange={(value) => setPitch1(value)}/>
-            <Knob { ...KnobLayout.Pitch2 } cc={44} value={ pitch2 } onChange={(value) => setPitch2(value)}/>
-            <Knob { ...KnobLayout.Pitch3 } cc={45} value={ pitch3 } onChange={(value) => setPitch3(value)}/>
-            <Knob { ...KnobLayout.Volume } value={ volume } onChange={(value) => setVolume(value)}/>
+            <LEDDisplay display={activeCC} />
 
-            <Knob { ...KnobLayout.Tempo } value={ tempo } onChange={(value) => setTempo(value)}/>
-            <Knob { ...KnobLayout.Attack } cc={46} value={ attack } onChange={(value) => setAttack(value)}/>
-            <Knob { ...KnobLayout.Decay } cc={47} value={ decay } onChange={(value) => setDecay(value)}/>
-            <Knob { ...KnobLayout.EgInt } cc={48} value={ egInt } onChange={(value) => setEgInt(value)}/>
+            {
+                KnobLayout.map((layout, i) => 
+                    <Knob {...layout} 
+                        key={layout.name} 
+                        value={patch[KnobLayout[i].name]} 
+
+                        onChange={(name, value, cc) => { 
+                            props.onCC(name, value, cc);
+                            setActiveCC({name: name, value: Math.floor(value) })
+                        }}
+
+                        isActiveControl={activeCC.name === patch[KnobLayout[i].name]}
+
+                        onHover={(name, value) => { setActiveCC({name: name, value: Math.floor(value) }) }}
+                        onHoverEnd={() => {setActiveCC(false)}}
+
+                        />
+                )
+            }
 
             <PushButton { ...ButtonLayout.Memory } />
             <PushButton { ...ButtonLayout.StepMode } />
@@ -90,16 +67,43 @@ function Volca(props) {
             <PushButton { ...ButtonLayout.VCO3 } />
             <PushButton { ...ButtonLayout.Func } />
 
+            {/* 
+                The Volca keybed covers a range of notes from A-1 to C7, with notes from
+                three different octaves (but ALL of only one octave) represented at each keybed interval.
+                The annoying expression used to calculate the "octave" property below
+                is necessary to enforce this unusual range of notes.
+                
+                ----------16 Note Keybed---------
+                Octave 1: A through B (Keys 1-3)
+                Octave 2: C through B (Keys 3-15)
+                Octave 3: C Only (Key 16)
+                ---------------------------------
+
+            */}
             {
                 Notes.map((note, i) => 
                     <Key    key={i} 
-                            onPressed={(note) => {handleNotePressed(note)}} 
-                            onReleased={(note) => {handleNoteReleased(note)}} 
-                            note={note} 
+                            octave={noteOctave + (i <= 2 ? -1 : i <= 14 ? 0 : 1)}
+                            onPressed={(note) => { props.onKeyPress(note) }} 
+                            onReleased={(note) => { props.onKeyRelease(note) }} 
+                            note={ note } 
                             image={KeyImages[i]} 
                             left={ (5.1 + (5.7*i)) + "%" } />
                 )
             }
+
+
+            {
+                FuncControls.map((funcControl, i) => 
+                    <LightToggle    key={funcControl}
+                                    active={props.patch[funcControl]}
+                                    name={funcControl}
+                                    left={ (5.6 + (5.69*i)) + "%" }
+                                    onToggle={(name, active) => props.onFuncToggle(name, active)} />
+                )
+            }
+
+
 
         </div>
     );

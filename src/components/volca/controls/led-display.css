@@ -1,0 +1,25 @@
+@font-face {
+    font-family: Digital7;
+    src: url(../../../assets/fonts/digital-7.ttf);
+}
+
+.led-display_wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+
+    position: absolute;
+    top: 47%;
+    left: 4.5%;
+    width: 16.66%;
+    height: 13.33%;
+    color: red;
+    font-family: Digital7;
+    font-size: 64pt;
+    text-align: right;
+    /* text-shadow: 0 0 5px #FF0000; */
+    opacity: .8;
+    user-select: none;
+    
+}

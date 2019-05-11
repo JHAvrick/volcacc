@@ -1,0 +1,45 @@
+.light-toggle_wrapper {
+    position: absolute;  
+    width: 3.333%;
+    height: 5.555%;
+    top: 87%;
+    background-color: transparent;
+    transition: 50ms;
+}
+
+.light-toggle_bg-image {
+    max-width: 100%;
+    max-height: 100%;
+    border-style: none;
+    backface-visibility: hidden;
+    transform: perspective(1px) translateZ(0);
+    -webkit-font-smoothing: subpixel-antialiased;
+}
+
+@keyframes pulse {
+    0% {
+      -moz-box-shadow: 0 0 0 0 rgba(204,169,44, 0.4);
+      box-shadow: 0 0 0 0 rgba(204,169,44, 0.4);
+    }
+    70% {
+        -moz-box-shadow: 0 0 0 10px rgba(204,169,44, 0);
+        box-shadow: 0 0 0 10px rgba(204,169,44, 0);
+    }
+    100% {
+        -moz-box-shadow: 0 0 0 0 rgba(204,169,44, 0);
+        box-shadow: 0 0 0 0 rgba(204,169,44, 0);
+    }
+  }
+
+@keyframes flicker {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+
+
+

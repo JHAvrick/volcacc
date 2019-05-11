@@ -1,3 +1,7 @@
+#root {
+  height: 100%;
+}
+
 .App {
   display: flex;
   align-items: center;
@@ -5,6 +9,7 @@
   flex-direction: column;
   text-align: center;
   margin: auto;
+  height: 100%;
 }
 
 .App-logo {
@@ -28,9 +33,18 @@
   color: #61dafb;
 }
 
+.app_content-wrapper {
+  display: flex;
+}
+
 @font-face {
   font-family: 'Digital7';
   src: local('Digital7'), url(./assets/fonts/digital-7.ttf) format('ttf');
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: local('Roboto'), url(./assets/fonts/Roboto-Light.ttf) format('ttf');
 }
 
 @keyframes App-logo-spin {
@@ -40,4 +54,9 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+
+.spacer {
+  height: 100px;
 }

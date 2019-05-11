@@ -1,0 +1,41 @@
+.settings-toggle_wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+
+    position: relative;
+    margin: 3px;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    text-align: left;
+
+    background: rgba(0, 0, 0, 0.35);
+    border: 0.5px solid rgba(255, 255, 255, 0.75);
+    color: rgba(255, 255, 255, 0.89);
+
+    transition: 200ms ease-out ease-in;
+}
+
+.settings-toggle_toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+
+    width: 12px;
+    height: 12px;
+
+    background: rgba(0, 0, 0, 0.35);
+    border: 0.5px solid rgba(255, 255, 255, 0.75);
+
+    user-select: none;
+    cursor: pointer;
+}
+
+.settings-toggle_fill {
+    width: 5px;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.75);
+}

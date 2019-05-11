@@ -1,23 +1,15 @@
 import React, { useState, useEffect } from 'react';
+import convertRange from '../../../util/convert-range'; 
+import clamp from '../../../util/clamp'; 
 import KnobLargePNG from '../../../assets/volca_slices/knob_large.png'
 import KnobMediumPNG from '../../../assets/volca_slices/knob_small.png';
 import KnobSmallPNG from '../../../assets/volca_slices/knob_mini.png';
-
 import "./knob.css";
-
-console.log(KnobLargePNG);
-
-/**
- * This function clamps an number to a certain min/max range.
- */
-function clamp(num, min, max) {
-    return num <= min ? min : num >= max ? max : num;
-}
 
 /**
  * Converts a midi value to an angle that is usable by the Knob component
  * 
- * @param {} midiValue - A value between 0 and 127
+ * @param {Number} midiValue - A value between 0 and 127
  */
 function midiToAngle(midiValue){
     return midiValue <= 63  ? clamp(-(145 - (midiValue * 2.28)), -145, 0)
@@ -31,7 +23,8 @@ function midiToAngle(midiValue){
  * it works...
  */
 function Knob(props) {
-
+    
+    const [outputValue, setOutputValue] = useState(props.value);
     const [dragActive, setDragActive] = useState(false);
     const [dragStartY, setDragStartY] = useState(0);
     const [knobImage] = useState(() => {
@@ -67,13 +60,13 @@ function Knob(props) {
 
             //Calculate the next angle based on how far the mouse has moved from it's starting position
             let nextAngle = clamp(dragStartY - event.screenY, -145, 145);
-
-            //Translate the angle to a value between 0 and 127 (i.e. midi cc range)
-            let midiValue = nextAngle < 0   ? Math.floor(63 - (Math.abs(nextAngle) * .4311))
-                                            : Math.floor(65 + (nextAngle * .4311));
+            
+            //Convert the angle to a value on the user's number range (0 to 127 for most knobs)
+            let outputValue = convertRange(nextAngle, -145, 145, props.min, props.max);
+            setOutputValue(outputValue);
 
             //Call onChange callback for the new value (if passed back as value prop by parent)
-            props.onChange(midiValue);
+            props.onChange(props.name, outputValue, props.cc);
         }        
     }
 
@@ -82,7 +75,8 @@ function Knob(props) {
      * to false.
      */
     const handleMouseUp = () => {
-       setDragActive(false);   
+       setDragActive(false);
+       props.onHoverEnd();
     }
 
     //Document listeners
@@ -98,6 +92,7 @@ function Knob(props) {
 
     return (
         <div className="knob_wrapper"
+
             style ={{
                 width: props.width,
                 height: props.height,
@@ -105,7 +100,10 @@ function Knob(props) {
                 left: props.left,
                 transform: `rotate(${midiToAngle(props.value)}deg)`
             }}
-            onDragStart={(e) => handleDragStart(e)}>
+
+            onDragStart={(e) => handleDragStart(e)}
+            onMouseOver={() => props.onHover(props.name, outputValue)}
+            onMouseOut={props.onHoverEnd}>
 
             <img className="knob_bg-image" alt="Volca Knob" src={knobImage}></img>
 
@@ -114,7 +112,10 @@ function Knob(props) {
 }
 
 Knob.defaultProps = {
+    min: 0,
+    max: 127,
     onChange: function(){},
+    onHover: function(){},
     value: 63.5,
     size: "large"
 };
