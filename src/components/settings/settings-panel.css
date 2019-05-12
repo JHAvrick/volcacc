@@ -4,9 +4,11 @@
     flex-direction: column;
 
     background: rgba(0, 0, 0, 0.55);
-    width: 200px;
-    height: 600px;
+    width: 12.5vw;
+    height: 37.2vw;
     margin-left: 10px;
+
+    font-size: .8vw;
 }
 
 .settings-panel_group {
@@ -20,7 +22,7 @@
     text-align: left;
 
     font-family: Digital7;
-    font-size: 20pt;
+    font-size: 1.7vw;
 
     color: white;
 }
@@ -38,9 +40,8 @@
 .settings-panel_button {
     margin: 3px;
     padding: 5px;
-    padding-left: 10px;
-    padding-right: 10px;
 
+    font-size: inherit;
     background: rgba(0, 0, 0, 0.35);
     border: 0.5px solid rgba(255, 255, 255, 0.75);
     color: rgba(255, 255, 255, 0.89);
@@ -63,3 +64,8 @@
 .button-red {
     color: #FB6666;
 }
+
+.button-blue {
+    color:	rgb(185, 128, 255)
+}
+

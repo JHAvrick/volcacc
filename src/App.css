@@ -37,6 +37,14 @@
   display: flex;
 }
 
+@media only screen and (max-width: 1000px) {
+  .app_content-wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+
 @font-face {
   font-family: 'Digital7';
   src: local('Digital7'), url(./assets/fonts/digital-7.ttf) format('ttf');

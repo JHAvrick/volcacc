@@ -109,4 +109,9 @@ function Volca(props) {
     );
 }
 
+Volca.defaultProps = {
+    onKeyPress: function(){},
+    onKeyRelease: function(){}
+}
+
 export default Volca;

@@ -10,13 +10,13 @@
     justify-content: center;
 
     position: absolute;
-    top: 47%;
-    left: 4.5%;
+    top: 47.5%;
+    left: 4.4%;
     width: 16.66%;
     height: 13.33%;
     color: red;
     font-family: Digital7;
-    font-size: 64pt;
+    font-size: 5vw;
     text-align: right;
     /* text-shadow: 0 0 5px #FF0000; */
     opacity: .8;

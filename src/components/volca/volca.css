@@ -2,7 +2,8 @@
     position: relative;
     left: 0;
     right: 0;
-    width: 1000px;
+    width: 62vw;
+    height: 37.2vw;
 
     backface-visibility: hidden;
     transform: perspective(1px) translateZ(0);

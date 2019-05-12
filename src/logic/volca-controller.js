@@ -16,7 +16,6 @@ class VolcaController {
         });
 
         this.events = new EventEmitter();
-
     }
 
     on(event, listener){

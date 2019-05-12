@@ -1,25 +1,58 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import "./settings-panel.css";
+
 import SettingsDropdown from './settings-dropdown';
 import SettingsToggle from './settings-toggle';
+import SettingsModal from './settings-modal';
 
 function SettingsPanel(props) {
 
+    const [modalActive, setModalActive] = useState({ open: false, operation: "new" });
     const [inputDevice, setInputDevice] = useState(props.inputDevice);
     const [inputOptions, setInputOptions] = useState(props.inputOptions);
     const [outputDevice, setOutputDevice] = useState(props.outputDevice);
     const [outputOptions, setOutputOptions] = useState(props.outputOptions);
-    const [activePatch, setActivePatch] = useState(props.patch);
+    const [activePatch, setActivePatch] = useState(props.activePatch);
     const [patchOptions, setPatchOptions] = useState(props.patchOptions);
     const [autoSend, setAutoSend] = useState(true);
 
     const handleInputSelected = (option) => { setInputDevice(option); }
     const handleOutputSelected = (option) => { setOutputDevice(option); } 
-    const handlePatchSelected = (option) => { setActivePatch(option); } 
+    const handlePatchSelected = (option) => { 
+        props.onPatchSelected(option);
+        setActivePatch(option); 
+    } 
     const handledAutoSendToggled = () => { setAutoSend(!autoSend); }
+
+    useEffect(() => setInputDevice(props.inputDevice), [props.inputDevice]);
+    useEffect(() => setInputOptions(props.inputOptions), [props.inputOptions]);
+    useEffect(() => setOutputDevice(props.outputDevice), [props.outputDevice]);
+    useEffect(() => setOutputOptions(props.outputOptions), [props.outputOptions]);
+    useEffect(() => setActivePatch(props.activePatch), [props.activePatch]);
+    useEffect(() => setPatchOptions(props.patchOptions), [props.patchOptions]);
+
+    const handleNewClicked = () =>  setModalActive({ open: true, operation: "new" });
+    const handleDuplicateClicked = () =>  setModalActive({ open: true, operation: "duplicate" });
+    const handleModalCancelled = () =>  setModalActive(false);
+
+    const handleModalConfirmed = (value) => {
+        setModalActive({ open: false});
+        if (modalActive.operation === "new")
+            props.onNew(value);
+        else
+            props.onDuplicate(value);
+    }
 
     return(
         <div className="settings-panel_wrapper">
+
+            <SettingsModal 
+                label="Patch Name" 
+                active={modalActive.open} 
+                onCancelled={handleModalCancelled}
+                onConfirmed={handleModalConfirmed}
+            />
+
 
             <div className="settings-panel_group"> 
                 <p className="settings-panel_group-header"> Devices </p>
@@ -33,13 +66,12 @@ function SettingsPanel(props) {
                 <SettingsDropdown value={activePatch} onSelected={handlePatchSelected} options={patchOptions} />
 
                 <div className="settings-panel_line "> 
-                    <button style={{width:"100%"}} className="settings-panel_button button-green"> New </button>
-                    <button onClick={props.onDeletePatch} className="settings-panel_button button-red"> Delete </button>
+                    <button onClick={handleNewClicked} style={{width:"50%"}} className="settings-panel_button button-green"> New </button>
+                    <button onClick={handleDuplicateClicked} style={{width:"50%"}} className="settings-panel_button button-blue"> Copy </button>
                 </div>
 
                 <div className="settings-panel_line"> 
-                    <button onClick={props.onSavePatch} className="settings-panel_button"> Save </button>
-                    <button style={{width:"100%"}} className="settings-panel_button"> Save As Copy </button>
+                    <button style={{width:"100%"}} onClick={props.onPatchDeleted} className="settings-panel_button button-red"> Delete </button>
                 </div>
 
                 <div className="settings-panel_line "> 
@@ -58,8 +90,12 @@ SettingsPanel.defaultProps = {
     inputOptions: [],
     outputDevice: { name: "Output - None", value: null },
     outputOptions: [],
-    patch: { name: "No Patch", value: null },
-    patchOptions: []
+    activePatch: { name: "No Patch", value: null },
+    patchOptions: [],
+    onNew: function(){},
+    onPatchSelected: function(){},
+    onPatchDeleted: function(){},
+    onDuplicate: function(){}
 }
 
 
