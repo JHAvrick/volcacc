@@ -12,38 +12,49 @@
   height: 100%;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
 .app_content-wrapper {
   display: flex;
 }
 
-@media only screen and (max-width: 1000px) {
-  .app_content-wrapper {
-    display: flex;
-    flex-direction: column;
-  }
+.app_header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
 }
 
+.app_header h1 {
+  color: white;
+  font-family: "Moon";
+  font-size: 4vh;
+  font-weight: 100;
+  float: right;
+  margin-right: 2vw;
+}
+
+.app_footer {
+  position: absolute;
+  top: calc(100% - 5vh);;
+  left: 0;
+  width: 100%;
+}
+
+.app_footer p {
+  color: white;
+  font-family: "Moon";
+  float: right;
+  margin-right: 2vw;
+}
+
+@media only screen and (max-width: 750px) {
+  .app_content-wrapper {
+    display: none;
+  }
+
+  .app_header h1 {
+    margin-right: 4vw;
+  }
+}
 
 @font-face {
   font-family: 'Digital7';
@@ -53,6 +64,11 @@
 @font-face {
   font-family: 'Roboto';
   src: local('Roboto'), url(./assets/fonts/Roboto-Light.ttf) format('ttf');
+}
+
+@font-face {
+  font-family: 'Moon';
+  src: local('Moon'), url(./assets/fonts/Moon-Light.otf);
 }
 
 @keyframes App-logo-spin {

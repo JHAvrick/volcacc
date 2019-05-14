@@ -31,8 +31,8 @@ function SettingsModal(props) {
     });
 
     return(
-        <div style={{ display: active ? "flex" : "none" }} className="settings-toggle_overlay">
-            <div> 
+        <div style={{ display: active ? "flex" : "none" }} className="settings-modal_overlay">
+            <div className="settings-modal_content"> 
                 <p> {props.label} </p>
                 <input onKeyDown={handleInputKeyPress} minLength={1} maxLength={24} ref={inputEl} type="text" />
                 <div className="settings-modal_button-tray"> 

@@ -24,12 +24,12 @@ function Volca(props) {
     const [activeCC, setActiveCC] = useState({ name: "octave", value: props.patch.octave });
     const [patch, setPatch] = useState(props.patch);
     const [noteOctave, setNoteOctave] = useState(
-        Math.floor(convertRange(props.patch.octave, 0, 127, -1, 4))
+        Math.floor(convertRange(props.patch.octave, 0, 127, 1, 6))
     );
 
     useEffect(() => {
         setPatch({...props.patch});
-        setNoteOctave(Math.floor(convertRange(props.patch.octave, 0, 127, 0, 6)));
+        setNoteOctave(Math.floor(convertRange(props.patch.octave, 0, 127, 1, 6)));
     }, [props.patch]);
 
     return(

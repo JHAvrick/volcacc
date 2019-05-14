@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import LightPNG from '../../../assets/volca_slices/light.png'
 import "./light-toggle.css";
 

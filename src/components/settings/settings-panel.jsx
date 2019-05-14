@@ -16,13 +16,24 @@ function SettingsPanel(props) {
     const [patchOptions, setPatchOptions] = useState(props.patchOptions);
     const [autoSend, setAutoSend] = useState(true);
 
-    const handleInputSelected = (option) => { setInputDevice(option); }
-    const handleOutputSelected = (option) => { setOutputDevice(option); } 
+    const handleInputSelected = (option) => { 
+        props.onInputSelected(option);
+        setInputDevice(option); 
+    }
+   
+    const handleOutputSelected = (option) => { 
+        props.onOutputSelected(option);
+        setOutputDevice(option); 
+    } 
+
     const handlePatchSelected = (option) => { 
         props.onPatchSelected(option);
         setActivePatch(option); 
     } 
-    const handledAutoSendToggled = () => { setAutoSend(!autoSend); }
+
+    const handledAutoSendToggled = () => { 
+        setAutoSend(!autoSend); 
+    }
 
     useEffect(() => setInputDevice(props.inputDevice), [props.inputDevice]);
     useEffect(() => setInputOptions(props.inputOptions), [props.inputOptions]);
@@ -95,7 +106,9 @@ SettingsPanel.defaultProps = {
     onNew: function(){},
     onPatchSelected: function(){},
     onPatchDeleted: function(){},
-    onDuplicate: function(){}
+    onDuplicate: function(){},
+    onInputSelected: function(){},
+    onOutputSelected: function(){}
 }
 
 

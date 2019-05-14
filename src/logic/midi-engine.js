@@ -3,7 +3,7 @@ import WebMidi from 'webmidi';
 import PatchManager from './patch-manager';
 import DeviceManager from './device-manager';
 import EventEmitter from '../util/event-emitter';
-//import VolcaController from './volca-controller';
+import MidiController from './midi-controller';
 
 
 /**
@@ -16,16 +16,33 @@ const MidiEngine = {
     //devices: new DeviceManager(WebMidi), 
     patches: new PatchManager(),
     devices: new DeviceManager(),
+    controller: new MidiController(),
     events: new EventEmitter(),
     init(){
         WebMidi.enable((err) => {
             if (err) {
+                console.warn('VOLCACC: WebMidi failed to start. See error message below.');
+                console.warn(err);
+
                 this.events.emit("midiFailure", err);
                 return;
             }
 
-            this.deviceManager.init(WebMidi);
+            /**
+             * Connect thej midi controller to the data model. The controller does
+             * not modify the data model, just passively listens for changes
+             * and sends appropriate messages to the active device output
+             */
+            this.devices.on("activeDeviceChange", (input, output) => {
+                this.controller.setInput(input);
+                this.controller.setOutput(output);
+            })
 
+            this.patches.on("cc", (cc, value) => this.controller.cc(cc, value));
+            this.patches.on("patchSwitch", (newPatch) => this.controller.patch(newPatch));
+
+            this.devices.init(WebMidi);
+            console.log('VOLCACC: WebMidi started successfully.');
         });
     },
 
@@ -46,13 +63,29 @@ const MidiEngine = {
         return this.patches.activePatch.data;
     },
 
-        /**
+    /**
      * Returns a name/value pair (the name & patch ID) for the active patch
      */
     getPatchOptions(){
         return this.patches.getPatchesAsArray().map(
             (patch) => {return { name: patch.meta.name, value: patch.id }} 
         )
+    },
+
+    getInputOptions(){
+        return this.devices.getInputs()
+        .filter((input) => input.state === "connected" && input.connection === "open")
+        .map((input) => { 
+            return { name: input.name, value: input.name}
+        });
+    },
+
+    getOutputOptions(){
+        return this.devices.getOutputs()
+        .filter((output) => output.state === "connected" && output.connection === "open")
+        .map((output) => { 
+            return { name: output.name, value: output.name}
+        });
     }
 
 }

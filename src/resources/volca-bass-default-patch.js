@@ -5,18 +5,18 @@ const VolcaBassDefaultPatch = {
         dateCreated: new Date().toLocaleDateString()
     },
     data: {
-        octave: 64,
-        peak: 64,
+        octave: 63,
+        peak: 0,
         cutoff: 64,
-        rate: 64,
-        int: 64,
+        rate: 0,
+        int: 0,
         pitch1: 64,
         pitch2: 64,
         pitch3: 64,
-        volume: 64,
+        volume: 127,
         tempo: 64,
-        attack: 64,
-        decay: 64,
+        attack: 0,
+        decay: 127,
         egInt: 64,
         funcM1: true,
         funcM2: false,
@@ -34,6 +34,17 @@ const VolcaBassDefaultPatch = {
         func14: false,
         func15: false,
         func16: false,
+    },
+    cc: {
+        octave: 40,
+        rate: 41,
+        int: 42,
+        pitch1: 43,
+        pitch2: 44,
+        pitch3: 45,
+        attack: 46,
+        decay: 47,
+        egInt: 48,     
     }
 }
 

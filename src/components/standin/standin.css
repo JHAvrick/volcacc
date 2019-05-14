@@ -1,0 +1,50 @@
+.standin_wrapper {
+    display: none;
+}
+
+.standin_h1-desktop {
+    font-family: "Moon";
+    font-size: 4vw;
+    font-weight: 100;
+    color: white;
+    margin-bottom: 10vh;
+    margin-left: 12vw;
+    margin-right: 12vw;    
+}
+
+.standin_h1-mobile {
+    font-size: 5vw;
+    font-weight: 100;
+    color: white;
+    margin-bottom: 10vh;
+    margin-left: 12vw;
+    margin-right: 12vw;  
+}
+
+.standin_wrapper h2 {
+    font-weight: 100;
+    color: white;
+}
+
+.standin_wrapper img {
+    width: 75%;
+}
+
+.standin_error-icon {
+    width: 10vw;
+    height: 10vw;
+    color: white;
+}
+
+/*
+  This breakpoint hides the patch editor completely and
+  replaces it 
+*/
+@media only screen and (max-width: 750px) {
+    .standin_wrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+}

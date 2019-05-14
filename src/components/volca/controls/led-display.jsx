@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import DisplayRules from './display-rules';
 import "./led-display.css";
 

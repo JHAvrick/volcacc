@@ -34,10 +34,7 @@ class PatchManager {
         } else if (Object.keys(this.patches).length !== 0){
             this.activePatch = this.patches[Object.keys(this.patches)[0]]
         } else {
-            this.activePatch = {
-                meta: {...this.defaultPatch.meta},
-                data: {...this.defaultPatch.data}
-            };
+            this.activePatch = this._cloneDefault();
         }
 
         /**
@@ -70,6 +67,14 @@ class PatchManager {
         }
     }
 
+    _cloneDefault(){
+        return {
+            meta: {...this.defaultPatch.meta},
+            data: {...this.defaultPatch.data},
+            cc: {...this.defaultPatch.cc},
+        };
+    }
+
     /**
      * Commits and changes to localStorage
      */
@@ -90,10 +95,17 @@ class PatchManager {
             this.activePatch.data[name] = value;
         }
 
-        this.events.emit("cc", name, value, cc);
-        this.events.emit("patchChange", { 
+        /**
+         * The CC event is only triggered when a patch value has a CC value.
+         */
+        if (this.activePatch.cc[name] != null){
+            this.events.emit("cc", this.activePatch.cc[name], value);
+        }
+            
+        this.events.emit("patchChange", {
             meta: {...this.activePatch.meta},
-            data: {...this.activePatch.data}
+            data: {...this.activePatch.data},
+            cc: {...this.activePatch.cc}
         });
 
         this._commitStore();
@@ -111,7 +123,8 @@ class PatchManager {
 
         this.events.emit("patchChange", { 
             meta: {...this.activePatch.meta},
-            data: {...this.activePatch.data}
+            data: {...this.activePatch.data},
+            cc: {...this.activePatch.cc}
         });
 
         this._commitStore();
@@ -139,6 +152,9 @@ class PatchManager {
             },
             data: {
                 ...this.defaultPatch.data
+            },
+            cc: { 
+                ...this.defaultPatch.cc 
             }
         }
         
@@ -164,6 +180,9 @@ class PatchManager {
             },
             data: {
                 ...this.activePatch.data
+            },
+            cc: {
+                ...this.activePatch.cc
             }
         }
 
@@ -184,10 +203,7 @@ class PatchManager {
 
         //There was only one patch, fallback to the default
         if (Object.keys(this.patches).length === 0){
-            this.activePatch = {
-                meta: {...this.defaultPatch.meta},
-                data: {...this.defaultPatch.data}
-            }
+            this.activePatch = this._cloneDefault();
         } else {
             this.activePatch = this.patches[Object.keys(this.patches)[0]];
         }
@@ -205,6 +221,7 @@ class PatchManager {
                 id: patchID,
                 meta: this.patches[patchID].meta,
                 data: this.patches[patchID].data,
+                cc: this.patches[patchID].cc
             })
         }
 

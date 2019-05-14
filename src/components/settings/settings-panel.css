@@ -1,3 +1,9 @@
+@media only screen and (max-width: 1000px) {
+    .settings-panel_wrapper {
+        display: none;
+    }    
+}
+
 .settings-panel_wrapper {
     position: relative;
     display: flex;
@@ -6,7 +12,7 @@
     background: rgba(0, 0, 0, 0.55);
     width: 12.5vw;
     height: 37.2vw;
-    margin-left: 10px;
+    margin-left: .5vw;
 
     font-size: .8vw;
 }
@@ -18,7 +24,8 @@
 }
 
 .settings-panel_group-header {
-    margin: 5px;
+    margin: .2vw;
+    padding-bottom: .3vw;
     text-align: left;
 
     font-family: Digital7;
@@ -38,8 +45,8 @@
 }
 
 .settings-panel_button {
-    margin: 3px;
-    padding: 5px;
+    margin: .2vw;
+    padding: .3vw;
 
     font-size: inherit;
     background: rgba(0, 0, 0, 0.35);
@@ -68,4 +75,6 @@
 .button-blue {
     color:	rgb(185, 128, 255)
 }
+
+
 

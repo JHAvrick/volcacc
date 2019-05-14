@@ -1,21 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 
+/**
+ * Primary views
+ */
+import ContentStandin from "./components/standin/standin";
 import SettingsPanel from "./components/settings/settings-panel";
 import Volca from "./components/volca/volca";
-import VolcaController from './logic/volca-controller';
-import VolcaBassDefaultPatch from './resources/volca-bass-default-patch';
 
-//const volcaController = new VolcaController(VolcaBassDefaultPatch);
-
+/**
+ * Data model controller
+ */
 import MidiEngine from './logic/midi-engine';
-
 
 function App(){
 
   const [patchData, setPatchData] = useState(MidiEngine.getPatchData());
   const [patchMeta, setPatchMeta] = useState(MidiEngine.getPatchMeta());
   const [patchOptions, setPatchOptions] = useState(MidiEngine.getPatchOptions());
+  const [inputOptions, setInputOptions] = useState([]);
+  const [outputOptions, setOutputOptions] = useState([]);
+  const [inputDevice, setInputDevice] = useState();
+  const [outputDevice, setOutputDevice] = useState();
 
   useEffect(() => {
     /**
@@ -45,70 +51,84 @@ function App(){
       //TO DO: Send fresh patch to device from controller
     });
 
-    MidiEngine.devices.on("inputsConnected", (devices) => {
+    MidiEngine.devices.on("deviceOptionsChange", (inputs, outputs) => {
 
+      /*
+      console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
+      console.log("-----------ACTUAL------------")
+      console.log(inputs)
+      console.log(outputs);
+      console.log("-----------FILTERED--------------")
+      console.log(MidiEngine.getInputOptions())
+      console.log(MidiEngine.getOutputOptions());
+      console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
+      */
+
+      setInputOptions(MidiEngine.getInputOptions());
+      setOutputOptions(MidiEngine.getOutputOptions());
     });
     
-    MidiEngine.devices.on("outputsConnected", (devices) => {
+    MidiEngine.devices.on("activeDeviceChange", (input, output) => {
 
+      setInputDevice({name: input.name, value: input.name});
+      setOutputDevice({name: output.name, value: output.name});
     });
 
-    MidiEngine.devices.on("inputActivated", (devices) => {
-
-    });
-
-    MidiEngine.devices.on("outputActivated", (devices) => {
-
-    });
 
     //TO DO: on 'inputDevcieConnected' event, refresh 'inputDeviceOptions' state
     //TO DO: on 'outputDevcieConnected' event, refresh 'outputDeviceOptions' state
 
-
+    /**
+     * Starting the MidiEngine will allow the device list to populate, which will 
+     * trigger events causing a rerender, so we wait until all our data binding is
+     * done to start the midi engine.
+     */
+    MidiEngine.init();
   },[]);
 
   return(
     <div className="App">
-
+      
+      <div className="app_header"> 
+        <h1> VolcaCC </h1>
+      </div>
+      
       <div className="spacer"></div>
-          <div className="app_content-wrapper">
 
+          <ContentStandin />
+
+          <div className="app_content-wrapper">
             <Volca  patch={patchData} 
                 onCC={ (name, value, cc) => MidiEngine.patches.cc(name, value, cc) } 
-                //onKeyPress={ (note) => volcaController.keyPress(note) }
-                //onKeyRelease={ (note) => volcaController.keyRelease(note) }
+                onKeyPress={ (note) => MidiEngine.controller.keyPress(note) }
+                onKeyRelease={ (note) => MidiEngine.controller.keyRelease(note) }
                 onFuncToggle={ (name, active) => MidiEngine.patches.func(name, active) }
             />
 
             <SettingsPanel 
               activePatch={patchMeta}
               patchOptions={patchOptions}
+              inputDevice={inputDevice}
+              inputOptions={inputOptions}
+              outputDevice={outputDevice}
+              outputOptions={outputOptions}
+              onInputSelected={(option) => MidiEngine.devices.setActiveInput(option.value)}
+              onOutputSelected={(option) => MidiEngine.devices.setActiveOutput(option.value)}
               onNew={(name) => MidiEngine.patches.newPatch(name)}
               onDuplicate={(name) => MidiEngine.patches.duplicateActivePatch(name) }
               onPatchSelected={(option) => MidiEngine.patches.setActivePatch(option.value)}
               onPatchDeleted={() => MidiEngine.patches.deleteActivePatch() }
             />
-          
           </div>
 
       <div className="spacer"></div>
+
+      <div className="app_footer"> 
+        <p>Created by Joshua Avrick </p>
+      </div>
+
     </div>)
 
 }
-
-//Data Model
-  //DEVICES:
-    //Device Input
-    //Device Output
-    //Device Options
-  ///PATCHES:
-    //Active Patch Meta
-    //Active Patch Data
-    //Patch Options
-
-//Data Model Effects
-  //CC Message
-  //Func Buttons
-  //
 
 export default App;

@@ -1,4 +1,4 @@
-.settings-toggle_overlay {
+.settings-modal_overlay {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -14,33 +14,35 @@
     background-color: rgba(0,0,0,0.8);
 }
 
-.settings-toggle_overlay p {
+.settings-modal_content {
+    width: 30vw;
+}
+
+.settings-modal_overlay p {
     margin-bottom: 10px;
     text-align: left;
     color: white;
-    font-size: 32pt;
+    font-size: 3vw;
 }
 
-.settings-toggle_overlay input {
+.settings-modal_overlay input {
     width: 100%;
-    height: 75px;
     background-color: transparent;
     border: none;
     color: white;
     border-bottom: 1px solid white;
-    font-size: 32pt;
+    font-size: 3vw;
 }
 
-.settings-toggle_overlay input:focus {
+.settings-modal_overlay input:focus {
     outline:none;
 }
 
-.settings-toggle_overlay button {
+.settings-modal_overlay button {
     padding: 5px;
     width: 100%;
-    height: 50px;
     color: white;
-    font-size: 24pt;
+    font-size: 2vw;
     border: none;
     margin-top: 10px;
     background: rgba(0,0,0,0.5); /* Black w/ opacity */
@@ -49,12 +51,12 @@
     transition: 200ms;
 }
 
-.settings-toggle_overlay button:hover {
+.settings-modal_overlay button:hover {
     background: rgba(255,255,255,0.5); /* Black w/ opacity */
     color: black;
 }
 
-.settings-toggle_overlay button:focus {
+.settings-modal_overlay button:focus {
     outline:none;
 }
 

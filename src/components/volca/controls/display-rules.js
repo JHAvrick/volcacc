@@ -1,16 +1,18 @@
 import convertRange from '../../../util/convert-range';
 
 const convertPitchDisplay = function(value){
-    if (value <= 25)
-        return Math.floor(convertRange(value, 25, 0, -1, -12)) + "n";
-    if (value <= 60)
-        return Math.floor(convertRange(value, 60, 26, 0, -100)) + "c";
-    if (value > 60 && value < 68)
+    if (value <= 12)
+        return Math.floor(convertRange(value, 12, 0, -1, -12)) + "n";
+    if (value <= 55.5)
+        return Math.floor(convertRange(value, 55.5, 12, 0, -100)) + "c";
+    if (value > 55.5 && value < 71.5)
         return "off";
-    if (value > 68 && value < 100)
-        return Math.floor(convertRange(value, 68, 99, 0, 100)) + "c";
-    if (value > 100)
-        return Math.floor(convertRange(value, 100, 127, 1, 12)) + "n";
+    if (value > 71.5 && value < 115)
+        return Math.floor(convertRange(value, 71.5, 115, 0, 100)) + "c";
+    if (value >= 115){
+        return Math.round(convertRange(value, 115, 127, 1, 12)) + "n";
+    }
+        
 }
 
 /**
@@ -20,7 +22,18 @@ const convertPitchDisplay = function(value){
  */
 export default {
     octave: function(value) {
-        return Math.floor(convertRange(value, 0, 127, 1, 6));
+        if (value < 22)
+            return 1;
+        if (value >= 22 && value < 42)
+            return 2;
+        if (value >= 42 && value < 63)
+            return 3;
+        if (value >= 63 && value < 87)
+            return 4;
+        if (value >= 87 && value < 110)
+            return 5;
+        
+        return 6;
     },
     tempo: function(value) { 
         return Math.floor(convertRange(value, 0, 127, 56, 240));
