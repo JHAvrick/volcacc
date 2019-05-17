@@ -4,6 +4,11 @@
     }    
 }
 
+@font-face {
+    font-family: "DS-DIGI";
+    src: url(../../assets/fonts/DS-DIGI.TTF);
+}
+
 .settings-panel_wrapper {
     position: relative;
     display: flex;
@@ -28,7 +33,7 @@
     padding-bottom: .3vw;
     text-align: left;
 
-    font-family: Digital7;
+    font-family: "DS-DIGI";
     font-size: 1.7vw;
 
     color: white;

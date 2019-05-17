@@ -14,7 +14,7 @@ function SettingsPanel(props) {
     const [outputOptions, setOutputOptions] = useState(props.outputOptions);
     const [activePatch, setActivePatch] = useState(props.activePatch);
     const [patchOptions, setPatchOptions] = useState(props.patchOptions);
-    const [autoSend, setAutoSend] = useState(true);
+    const [showSendable, setShowSendable] = useState(props.showSendable);
 
     const handleInputSelected = (option) => { 
         props.onInputSelected(option);
@@ -31,17 +31,14 @@ function SettingsPanel(props) {
         setActivePatch(option); 
     } 
 
-    const handledAutoSendToggled = () => { 
-        setAutoSend(!autoSend); 
-    }
-
     useEffect(() => setInputDevice(props.inputDevice), [props.inputDevice]);
     useEffect(() => setInputOptions(props.inputOptions), [props.inputOptions]);
     useEffect(() => setOutputDevice(props.outputDevice), [props.outputDevice]);
     useEffect(() => setOutputOptions(props.outputOptions), [props.outputOptions]);
     useEffect(() => setActivePatch(props.activePatch), [props.activePatch]);
     useEffect(() => setPatchOptions(props.patchOptions), [props.patchOptions]);
-
+    useEffect(() => setShowSendable(props.showSendable), [props.showSendable]);
+ 
     const handleNewClicked = () =>  setModalActive({ open: true, operation: "new" });
     const handleDuplicateClicked = () =>  setModalActive({ open: true, operation: "duplicate" });
     const handleModalCancelled = () =>  setModalActive(false);
@@ -85,12 +82,10 @@ function SettingsPanel(props) {
                     <button style={{width:"100%"}} onClick={props.onPatchDeleted} className="settings-panel_button button-red"> Delete </button>
                 </div>
 
-                <div className="settings-panel_line "> 
-                    <SettingsToggle label="Auto Send" value={autoSend} onToggle={handledAutoSendToggled} />
-                    {(() => autoSend ? "" : (<button onClick={props.onSendPatch} className="settings-panel_button"> Send </button>))()}
-                </div>
+                <div className="settings-panel_line"> 
+                    <SettingsToggle label="Show Sendable" value={showSendable} onToggle={props.onShowSendableToggled} />
+                </div>  
             </div>
-
 
         </div>
     );
@@ -103,6 +98,7 @@ SettingsPanel.defaultProps = {
     outputOptions: [],
     activePatch: { name: "No Patch", value: null },
     patchOptions: [],
+    highlight: false,
     onNew: function(){},
     onPatchSelected: function(){},
     onPatchDeleted: function(){},

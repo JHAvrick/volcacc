@@ -8,8 +8,45 @@ class MidiController {
         this.output = null;
     }
 
-    setInput(input){ this.input = input; }
-    setOutput(output){ this.output = output; }
+    _handleInputNoteOn(e){
+        this.keyPress(e.note.number);
+    }
+
+    _handleInputNoteOff(e){
+        this.keyRelease(e.note.number);
+    }
+
+    _handleInputCC(e){
+        this.cc(e.controller.number, e.value);
+    }
+
+    setInput(input){ 
+        if (input == null) return;
+        if (this.input != null){
+            try {
+                this.input.removeListener("noteon", "all", this._handleInputNoteOn.bind(this));
+                this.input.removeListener("noteoff", "all", this._handleInputNoteOff.bind(this));
+                this.input.removeListener("controlchange", "all", this._handleInputCC.bind(this));
+            } catch (err) {
+                console.log("Output Error: ");
+                console.log(err);   
+            }
+        }
+
+        this.input = input; 
+        try {
+            this.input.addListener("noteon", "all", this._handleInputNoteOn.bind(this));
+            this.input.addListener("noteoff", "all", this._handleInputNoteOff.bind(this));
+            this.input.addListener("controlchange", "all", this._handleInputCC.bind(this));
+        } catch (err) {
+            console.log("Output Error: ");
+            console.log(err);   
+        }
+    }
+
+    setOutput(output){ 
+        this.output = output; 
+    }
 
     /**
      * 
@@ -19,24 +56,29 @@ class MidiController {
         let data = patch.data;
         let ccValues = patch.cc;
         for (let name in ccValues){
-            console.log(name, ccValues[name], data[name]);
             this.cc(ccValues[name], data[name]);
         }
     }
 
     cc(cc, value){
         if (this.output != null){
-            this.output.sendControlChange(cc, value);
+            try {
+                this.output.sendControlChange(cc, value);
+            } catch (err) {
+                console.log("Output Error: ");
+                console.log(err);    
+            }
         }
     }
 
     keyPress(note){
-        if (this.output != null)
-        try {
-            this.output.playNote(note, "all", {velocity: 1});
-        } catch (err){
-            console.log("Output Error: ");
-            console.log(err);
+        if (this.output != null){
+            try {
+                this.output.playNote(note, "all", {velocity: 1});
+            } catch (err){
+                console.log("Output Error: ");
+                console.log(err);
+            }
         }
     }
 
@@ -48,8 +90,7 @@ class MidiController {
                 console.log("Output Error: ");
                 console.log(err);
             }
-        }
-            
+        }     
     }
 
 }

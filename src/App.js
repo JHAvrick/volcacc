@@ -4,6 +4,7 @@ import './App.css';
 /**
  * Primary views
  */
+import Footer from "./components/footer/footer";
 import ContentStandin from "./components/standin/standin";
 import SettingsPanel from "./components/settings/settings-panel";
 import Volca from "./components/volca/volca";
@@ -22,6 +23,7 @@ function App(){
   const [outputOptions, setOutputOptions] = useState([]);
   const [inputDevice, setInputDevice] = useState();
   const [outputDevice, setOutputDevice] = useState();
+  const [showSendable, setShowSendable] = useState(false);
 
   useEffect(() => {
     /**
@@ -31,7 +33,7 @@ function App(){
       setPatchData(alteredPatch.data);
     });
 
-      /**
+    /**
      * Emitted when any part of the patch data is modified
      */
     MidiEngine.patches.on("patchOptionsChange", () => {
@@ -47,36 +49,17 @@ function App(){
 
       //This state value is used by the settings panel patch dropdown
       setPatchMeta({ name: otherPatch.meta.name, value: otherPatch.meta.id });
-
-      //TO DO: Send fresh patch to device from controller
     });
 
     MidiEngine.devices.on("deviceOptionsChange", (inputs, outputs) => {
-
-      /*
-      console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
-      console.log("-----------ACTUAL------------")
-      console.log(inputs)
-      console.log(outputs);
-      console.log("-----------FILTERED--------------")
-      console.log(MidiEngine.getInputOptions())
-      console.log(MidiEngine.getOutputOptions());
-      console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
-      */
-
       setInputOptions(MidiEngine.getInputOptions());
       setOutputOptions(MidiEngine.getOutputOptions());
     });
     
     MidiEngine.devices.on("activeDeviceChange", (input, output) => {
-
       setInputDevice({name: input.name, value: input.name});
       setOutputDevice({name: output.name, value: output.name});
     });
-
-
-    //TO DO: on 'inputDevcieConnected' event, refresh 'inputDeviceOptions' state
-    //TO DO: on 'outputDevcieConnected' event, refresh 'outputDeviceOptions' state
 
     /**
      * Starting the MidiEngine will allow the device list to populate, which will 
@@ -103,6 +86,7 @@ function App(){
                 onKeyPress={ (note) => MidiEngine.controller.keyPress(note) }
                 onKeyRelease={ (note) => MidiEngine.controller.keyRelease(note) }
                 onFuncToggle={ (name, active) => MidiEngine.patches.func(name, active) }
+                showSendable={ showSendable }
             />
 
             <SettingsPanel 
@@ -118,14 +102,14 @@ function App(){
               onDuplicate={(name) => MidiEngine.patches.duplicateActivePatch(name) }
               onPatchSelected={(option) => MidiEngine.patches.setActivePatch(option.value)}
               onPatchDeleted={() => MidiEngine.patches.deleteActivePatch() }
+              onShowSendableToggled={(value) =>  setShowSendable(!value)}
+              showSendable={showSendable}
             />
           </div>
 
       <div className="spacer"></div>
 
-      <div className="app_footer"> 
-        <p>Created by Joshua Avrick </p>
-      </div>
+      <Footer />
 
     </div>)
 

@@ -12,6 +12,7 @@ body {
 
   height: 100%;
   background: linear-gradient(128.08deg, #E800D0 6.71%, #35B5FD 91.78%);
+  overflow: hidden;
 }
 
 code {

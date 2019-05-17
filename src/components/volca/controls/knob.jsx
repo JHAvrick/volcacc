@@ -24,6 +24,7 @@ function midiToAngle(midiValue){
  */
 function Knob(props) {
     
+    const [isHighlighted, setIsHighlighted] = useState(props.isHighlighted);
     const [outputValue, setOutputValue] = useState(props.value);
     const [dragActive, setDragActive] = useState(false);
     const [dragStartY, setDragStartY] = useState(0);
@@ -90,6 +91,11 @@ function Knob(props) {
         }
     }, [dragActive]);
 
+    //Update state if highlighting is added or removed
+    useEffect(() => {
+        setIsHighlighted(props.isHighlighted);
+    }, [props.isHighlighted])
+
     return (
         <div className="knob_wrapper"
 
@@ -98,6 +104,7 @@ function Knob(props) {
                 height: props.height,
                 top: props.top,
                 left: props.left,
+                transition: dragActive ? "none" : "300ms",
                 transform: `rotate(${midiToAngle(props.value)}deg)`
             }}
 
@@ -106,6 +113,8 @@ function Knob(props) {
             onMouseOut={props.onHoverEnd}>
 
             <img className="knob_bg-image" alt="Volca Knob" src={knobImage}></img>
+            
+            <div style={{ opacity: isHighlighted ? 1 : 0 }} className="knob_highlighter"></div>
 
         </div>
     );
@@ -117,7 +126,8 @@ Knob.defaultProps = {
     onChange: function(){},
     onHover: function(){},
     value: 63.5,
-    size: "large"
+    size: "large",
+    isHighlighted: false
 };
 
 export default Knob;

@@ -11,16 +11,25 @@ import LightToggle from './controls/light-toggle';
 import LEDDisplay from './controls/led-display';
 import "./volca.css";
 
-
-//Iterated over to generate the Volca keybed
+/**
+ * Notes in the Volca Bass keybed. This array is iterated over to create the keybed. Additional state
+ * is used to denote the octave for each note. (see JSX comment)
+ */
 const Notes = ["A", "Bb", "B", "C", "C#", "D", "Eb", "E", "F", "F#", "G", "G#", "A", "Bb", "B", "C"];
 
-//List of 
+/**
+ * List of function buttons (keybed alt functions). This array is iterated over to generate toggle-lights below
+ * each key.
+ */
 const FuncControls = ["funcM1", "funcM2", "funcM3", "funcM4", "funcM5", "funcM6", "funcM7", "funcM8", 
                         "func9", "func10", "func11", "func12", "func13", "func14", "func15", "func16"]
 
+/**
+ * The main editor component of the Volca CC app
+ */
 function Volca(props) {
     
+    const [showSendable, setShowSendable] = useState(props.showSendable);
     const [activeCC, setActiveCC] = useState({ name: "octave", value: props.patch.octave });
     const [patch, setPatch] = useState(props.patch);
     const [noteOctave, setNoteOctave] = useState(
@@ -31,6 +40,10 @@ function Volca(props) {
         setPatch({...props.patch});
         setNoteOctave(Math.floor(convertRange(props.patch.octave, 0, 127, 1, 6)));
     }, [props.patch]);
+
+    useEffect(() => {
+        setShowSendable(props.showSendable);
+    }, [props.showSendable])
 
     return(
         <div  className="volca_wrapper"  draggable={false}>
@@ -48,9 +61,9 @@ function Volca(props) {
                             props.onCC(name, value, cc);
                             setActiveCC({name: name, value: Math.floor(value) })
                         }}
-
+                        
+                        isHighlighted={ layout.sendable && showSendable ? true : false}
                         isActiveControl={activeCC.name === patch[KnobLayout[i].name]}
-
                         onHover={(name, value) => { setActiveCC({name: name, value: Math.floor(value) }) }}
                         onHoverEnd={() => {setActiveCC(false)}}
 

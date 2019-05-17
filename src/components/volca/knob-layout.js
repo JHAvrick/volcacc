@@ -1,6 +1,7 @@
 const KnobLayout = [
     {
         cc: 40,
+        sendable: true,
         name: "octave",
         size: "medium",
         top: "32.60%",
@@ -26,6 +27,7 @@ const KnobLayout = [
     },
     {
         cc: 41,
+        sendable: true,
         name: "rate",
         size: "medium",
         top: "32.60%",
@@ -35,6 +37,7 @@ const KnobLayout = [
     },
     {
         cc: 42,
+        sendable: true,
         name: "int",
         size: "medium",
         top: "32.60%",
@@ -44,6 +47,7 @@ const KnobLayout = [
     },
     {
         cc: 43,
+        sendable: true,
         name: "pitch1",
         size: "small",
         top: "35.7%",
@@ -53,6 +57,7 @@ const KnobLayout = [
     },
     {
         cc: 44,
+        sendable: true,
         name: "pitch2",
         size: "small",
         top: "35.7%",
@@ -62,6 +67,7 @@ const KnobLayout = [
     },
     {
         cc: 45,
+        sendable: true,
         name: "pitch3",
         size: "small",
         top: "35.7%",
@@ -87,6 +93,7 @@ const KnobLayout = [
     },
     {   
         cc: 46,
+        sendable: true,
         name: "attack",
         size: "small",
         top: "12.2%",
@@ -96,6 +103,7 @@ const KnobLayout = [
     },
     {
         cc: 47,
+        sendable: true,
         name: "decay",
         size: "small",
         top: "12.2%",
@@ -105,6 +113,7 @@ const KnobLayout = [
     },
     {
         cc: 48,
+        sendable: true,
         name: "egInt",
         size: "small",
         top: "12.2%",

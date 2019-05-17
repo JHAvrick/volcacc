@@ -32,20 +32,6 @@
   margin-right: 2vw;
 }
 
-.app_footer {
-  position: absolute;
-  top: calc(100% - 5vh);;
-  left: 0;
-  width: 100%;
-}
-
-.app_footer p {
-  color: white;
-  font-family: "Moon";
-  float: right;
-  margin-right: 2vw;
-}
-
 @media only screen and (max-width: 750px) {
   .app_content-wrapper {
     display: none;
@@ -54,11 +40,6 @@
   .app_header h1 {
     margin-right: 4vw;
   }
-}
-
-@font-face {
-  font-family: 'Digital7';
-  src: local('Digital7'), url(./assets/fonts/digital-7.ttf) format('ttf');
 }
 
 @font-face {

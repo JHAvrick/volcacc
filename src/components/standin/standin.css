@@ -7,7 +7,7 @@
     font-size: 4vw;
     font-weight: 100;
     color: white;
-    margin-bottom: 10vh;
+    margin-bottom: 7vh;
     margin-left: 12vw;
     margin-right: 12vw;    
 }
@@ -28,6 +28,7 @@
 
 .standin_wrapper img {
     width: 75%;
+    margin-bottom: 50px;
 }
 
 .standin_error-icon {
@@ -38,7 +39,7 @@
 
 /*
   This breakpoint hides the patch editor completely and
-  replaces it 
+  replaces it
 */
 @media only screen and (max-width: 750px) {
     .standin_wrapper {

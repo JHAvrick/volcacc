@@ -21,7 +21,7 @@
 .settings-dropdown_drawer {
     position: absolute;
     top: 100%;
-    left: 0%;
+    left: -.5px;
     width: 100%;
     padding-top: .3vw;
     padding-bottom: .3vw;

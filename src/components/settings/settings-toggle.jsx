@@ -7,9 +7,10 @@ function SettingsToggle(props) {
     useEffect(() => setValue(props.value), [props.value]);
 
     return(
-        <div className="settings-toggle_wrapper">
-            <div className="settings-toggle_toggle" onClick={props.onToggle}> 
+        <div onClick={() => props.onToggle(value) } className="settings-toggle_wrapper">
+            <div className="settings-toggle_toggle" onClick={() => props.onToggle(value) }> 
                 <div className="settings-toggle_fill" style={{ visibility: value ? "visible" : "hidden" }} > 
+                    &#10003;
                 </div>
             </div>
             {props.label}

@@ -13,12 +13,16 @@
     -webkit-font-smoothing: subpixel-antialiased;
 }
 
-/*
-.knob_bg-image:active {
-    transform: scale(.98);
-}
+.knob_highlighter {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color:rgba(0,200,0,0.2);
+    pointer-events: none;
 
-.knob_bg-image:hover {
-    transform: scale(.98);
+    opacity: 0;
+    transition: 400ms;
 }
-*/

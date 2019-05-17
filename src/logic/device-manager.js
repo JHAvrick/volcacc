@@ -1,4 +1,5 @@
 import EventEmitter from '../util/event-emitter';
+import getDummyDevice from './get-dummy-device';
 
 class DeviceManager {
     constructor(){
@@ -23,21 +24,10 @@ class DeviceManager {
         this.activeOutput = null;
 
         /**
-         * Dummy input/output to stand in for missing devices (really unpredictable)
+         * Shell input/output to stand in for missing devices (really unpredictable)
          */
-        this.defaultInput = { 
-            name: "Input - None",
-            playNote: function(){},
-            stopNote: function(){},
-            sendControlChange: function(){}
-        };
-
-        this.defaultOutput = { 
-            name: "Output - None",
-            playNote: function(){},
-            stopNote: function(){},
-            sendControlChange: function(){}
-        };
+        this.defaultInput = getDummyDevice("Input - None");
+        this.defaultOutput = getDummyDevice("Output - None");
 
         /**
          * Event emitter, emits events related to the connection/disconnection

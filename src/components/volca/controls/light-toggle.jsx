@@ -17,8 +17,6 @@ function LightToggle(props) {
                     alt="Volca Light Toggle" 
                     src={LightPNG}>
             </img>
-
-
         </div>
     );
 }

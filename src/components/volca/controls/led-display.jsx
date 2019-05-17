@@ -18,8 +18,9 @@ function LEDDisplay(props) {
                 draggable={false} 
                 style={{left: props.left}}>
 
-            { readout() }
-            
+            <div className="led-display_background">0000</div>
+            <div className="led-display_readout"> { readout() } </div>
+
         </div>
     );
 }
