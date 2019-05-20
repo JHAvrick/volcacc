@@ -12,9 +12,9 @@ function LightToggle(props) {
             
             
             <img    style={{ display: props.active === true ? "block" : "none" }} 
-                    draggable={false} 
+                    draggable={false}
                     className="key_bg-image" 
-                    alt="Volca Light Toggle" 
+                    alt="Volca Light Toggle Switch" 
                     src={LightPNG}>
             </img>
         </div>

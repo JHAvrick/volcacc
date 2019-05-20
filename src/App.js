@@ -73,7 +73,7 @@ function App(){
     <div className="App">
       
       <div className="app_header"> 
-        <h1> VolcaCC </h1>
+        <h1> Volca.CC </h1>
       </div>
       
       <div className="spacer"></div>

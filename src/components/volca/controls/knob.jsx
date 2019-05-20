@@ -112,7 +112,7 @@ function Knob(props) {
             onMouseOver={() => props.onHover(props.name, outputValue)}
             onMouseOut={props.onHoverEnd}>
 
-            <img className="knob_bg-image" alt="Volca Knob" src={knobImage}></img>
+            <img className="knob_bg-image" alt="Volca Control Knob" src={knobImage}></img>
             
             <div style={{ opacity: isHighlighted ? 1 : 0 }} className="knob_highlighter"></div>
 

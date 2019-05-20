@@ -1,6 +1,7 @@
 import React from 'react';
 import GithubIconPNG from '../../assets/icons/github-icon.png';
 import LinkedInIconPNG from '../../assets/icons/linkedin-icon.png';
+import ContactIconPNG from '../../assets/icons/contact-icon.png';
 import "./footer.css";
 
 /**
@@ -17,6 +18,9 @@ function Footer() {
                     </a>
                     <a href="https://www.linkedin.com/in/joshavrick/" target="_blank" rel="noopener noreferrer">
                         <img alt="LinkedIn" src={LinkedInIconPNG}></img> 
+                    </a>
+                    <a href="mailto:josh@avrick.dev" target="_blank" rel="noopener noreferrer">
+                        <img alt="Contact" src={ContactIconPNG}></img> 
                     </a>
                 </div>
                 <p>Created by Joshua Avrick </p>
