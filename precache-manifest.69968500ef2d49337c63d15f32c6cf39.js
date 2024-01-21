@@ -1,11 +1,11 @@
 self.__precacheManifest = [
   {
-    "revision": "d85589ba6fd865c54949",
-    "url": "/static/css/main.33e8e6a8.chunk.css"
+    "revision": "cca1371d42d9e22ebe9f",
+    "url": "/static/css/main.90ebacc2.chunk.css"
   },
   {
-    "revision": "d85589ba6fd865c54949",
-    "url": "/static/js/main.8ed32146.chunk.js"
+    "revision": "cca1371d42d9e22ebe9f",
+    "url": "/static/js/main.dfec8f56.chunk.js"
   },
   {
     "revision": "42ac5946195a7306e2a5",
@@ -20,23 +20,23 @@ self.__precacheManifest = [
     "url": "/static/media/volca-simple.38a86a32.gif"
   },
   {
-    "revision": "0b989f0b700fd3547c453fcb95a44251",
-    "url": "/static/media/volca.0b989f0b.png"
-  },
-  {
-    "revision": "c6cdfded4630ba6d9a2dceb70aa4fe0f",
-    "url": "/static/media/Roboto-Light.c6cdfded.ttf"
+    "revision": "0b738f8bc414a2803969a20f825cac70",
+    "url": "/static/media/volca.0b738f8b.png"
   },
   {
     "revision": "9e2688278bcb7a199bcfd8c8302eade3",
     "url": "/static/media/Moon-Light.9e268827.otf"
   },
   {
+    "revision": "c6cdfded4630ba6d9a2dceb70aa4fe0f",
+    "url": "/static/media/Roboto-Light.c6cdfded.ttf"
+  },
+  {
     "revision": "63f874d192fb3892d88d5e26f942b5e2",
     "url": "/static/media/DS-DIGI.63f874d1.TTF"
   },
   {
-    "revision": "8523ae6f341702e4e5a9b455377798e7",
+    "revision": "35c95b8693062087161b25519a560e12",
     "url": "/index.html"
   }
 ];
