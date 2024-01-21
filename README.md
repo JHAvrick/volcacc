@@ -1,6 +1,8 @@
 ## Volca.CC
 Volca.CC is a web-based patch editor for the Korg Volca Bass. To get any utility out of this app, you'll need to have a [Volca Bass](https://www.korg.com/us/products/dj/volca_bass/) and a MIDI-to-USB cable (or some kind of interface).
 
+![preview](preview.png)
+
 ## Usage
 Only a small subset of the editor's controls can actually be sent to the Volca Bass. This is because Korg's [midi implementation](http://i.korg.com/uploads/Support/USA_volcabass_MIDI_Chart_E.pdf) for the Volca series is sparse. You can still get quite a bit of variety out of the provided parameters, however. To highlight these parameters, toggle on the "Show Sendable" checkbox in the settings panel. 
 
@@ -36,10 +38,4 @@ Some browsers do not support the Web Midi API (looking at you Firefox). To use t
   For more info check out the [user manual](http://i.korg.com/uploads/Support/USA_volca_bass_OM_EFGSC2.pdf). Godspeed.
   
 ## Development
-Writeup coming soon.
-
-## Thanks!
-This app would have taken twice as long to develop without [WebMidi.js](https://github.com/djipco/webmidi). If you're thinking of working with the Web Midi API, I highly recommend this library. It'll save you some headaches.
-
-
-
+2024 Note: I created this for fun many years ago. The project is extremely outdated and was created using a very old version of create-react-app, but I've gone to the trouble of getting a build to be hosted on Github Pages. It still works quite well and, honestly, is way cooler than I remembered!

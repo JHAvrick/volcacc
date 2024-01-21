@@ -9,9 +9,9 @@ body {
   font-family:"Roboto", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
+  background: rgb(39, 39, 39);
+  background: linear-gradient(to bottom, black, rgb(63, 63, 63));
   height: 100%;
-  background: linear-gradient(128.08deg, #E800D0 6.71%, #35B5FD 91.78%);
   overflow: hidden;
 }
 
