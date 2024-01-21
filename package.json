@@ -2,6 +2,7 @@
   "name": "volcacc",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://jhavrick.github.io/volcacc/",
   "dependencies": {
     "express": "^4.17.0",
     "gh-pages": "^6.1.1",
@@ -18,7 +19,7 @@
     "build": "react-scripts --openssl-legacy-provider build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy": "node gh-pages-deploy.js"
+    "deploy": "npm run build && node gh-pages-deploy.js"
   },
   "eslintConfig": {
     "extends": "react-app"
